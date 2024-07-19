@@ -91,6 +91,10 @@ static const char *unmutecmd[]  = {"pactl",   "set-sink-mute", "0",      "0", NU
 static const char *volupcmd[]   = {"pactl", "set-sink-volume", "0",    "+5%", NULL};
 static const char *voldowncmd[] = {"pactl", "set-sink-volume", "0",    "-5%", NULL};
 
+/* screenshot commands */
+static const char *scrotcmd[]     = {"scrot",       "-F", "/home/clown/pictures/screenshots/screenshot-%Y.%m.%d.%H:%M:%S.png", NULL};
+static const char *scrotareacmd[] = {"scrot", "-s", "-F", "/home/clown/pictures/screenshots/screenshot-%Y.%m.%d.%H:%M:%S.png", NULL};
+
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -125,8 +129,12 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY|ShiftMask,             XK_r,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[7]} },
+	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[13]} },
+	/* ADD MORE LINES LIKE THE ONE ABOVE TO USE MORE LAYOUTS */
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -150,6 +158,8 @@ static const Key keys[] = {
         { 0,         XF86XK_AudioRaiseVolume,     spawn,           {.v = unmutecmd } },
         { 0,         XF86XK_AudioLowerVolume,     spawn,           {.v = voldowncmd} },
         { 0,         XF86XK_AudioLowerVolume,     spawn,           {.v = unmutecmd } },
+	{ MODKEY,                       XK_s,     spawn,           {.v = scrotcmd     } },
+        { MODKEY|ShiftMask,             XK_s,     spawn,           {.v = scrotareacmd } },
 };
 
 /* button definitions */
