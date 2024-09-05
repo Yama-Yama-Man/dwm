@@ -14,15 +14,38 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=10" };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#222222";
+
+/* COLORS */
+/* default */
+/*static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_red[]        = "#ed5933";
+static const char col_gray4[]       = "#eeeeee";*/
+
+/*static const char col_pink[]     = "#ed7966";*/
+static const char col_red[]      = "#ed5933";
+
+/*static const char col_l_green[]  = "#9cb886";
+static const char col_green[]    = "#8cb866";
+
+static const char col_l_yellow[] = "#d5de90";
+static const char col_yellow[]   = "#c5d16b";
+
+static const char col_l_blue[]   = "#9daeed";
+static const char col_blue[]     = "#4f66b8";
+
+static const char col_lavender[] = "#a08fba";
+static const char col_purple[]   = "#7c6e92";*/
+
+static const char col_white[]    = "#faeadd";
+static const char col_gray[]     = "#61697b";
+static const char col_gred[]     = "#a68c8b";
+static const char col_black[]    = "#22110a";
+
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_red,   col_red  },
+	[SchemeNorm] = { col_white, col_black, col_gred },
+	[SchemeSel]  = { col_white, col_red,   col_red  },
 };
 
 /* tagging */
@@ -82,7 +105,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_red, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_black, "-nf", col_gray, "-sb", col_red, "-sf", col_white, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 /* audio commands */
@@ -110,24 +133,29 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.25} },
 	{ MODKEY|ShiftMask,             XK_o,      setcfact,       {.f =  0.00} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY|Mod4Mask,              XK_u,      incrgaps,       {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_i,      incrigaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_o,      incrogaps,      {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_6,      incrihgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_7,      incrivgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_8,      incrohgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_9,      incrovgaps,     {.i = +1 } },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
-	{ MODKEY|Mod4Mask,              XK_0,      togglegaps,     {0} },
-	{ MODKEY|Mod4Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },
+
+	/* Gaps */
+	/*{ MODKEY|Mod1Mask,              XK_u,      incrgaps,       {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_i,      incrigaps,      {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_i,      incrigaps,      {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_o,      incrogaps,      {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_o,      incrogaps,      {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_6,      incrihgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_6,      incrihgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_7,      incrivgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_7,      incrivgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_8,      incrohgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_8,      incrohgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_9,      incrovgaps,     {.i = +1 } },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
+	{ MODKEY|Mod1Mask,              XK_0,      togglegaps,     {0} },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_0,      defaultgaps,    {0} },*/
+
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
+	
+	/* Layouts */
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_r,      setlayout,      {.v = &layouts[2]} },
@@ -135,6 +163,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_t,      setlayout,      {.v = &layouts[7]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[13]} },
 	/* ADD MORE LINES LIKE THE ONE ABOVE TO USE MORE LAYOUTS */
+
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -153,11 +182,15 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+
+	/* Volume */
         { 0,                XF86XK_AudioMute,     spawn,           {.v = mutecmd   } },
         { 0,         XF86XK_AudioRaiseVolume,     spawn,           {.v = volupcmd  } },
         { 0,         XF86XK_AudioRaiseVolume,     spawn,           {.v = unmutecmd } },
         { 0,         XF86XK_AudioLowerVolume,     spawn,           {.v = voldowncmd} },
         { 0,         XF86XK_AudioLowerVolume,     spawn,           {.v = unmutecmd } },
+
+	/* Screenshots */
 	{ MODKEY,                       XK_s,     spawn,           {.v = scrotcmd     } },
         { MODKEY|ShiftMask,             XK_s,     spawn,           {.v = scrotareacmd } },
 };
